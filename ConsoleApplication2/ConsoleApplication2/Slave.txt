@@ -1,5 +1,1 @@
-1 2 d d d
-2 3 f f f
-5 16 erdsgjk asgj dsajv
-6 15 sefg dsevf werf
-7 18 Vladymyr KMS male
+3 20 PIB3 R3 male

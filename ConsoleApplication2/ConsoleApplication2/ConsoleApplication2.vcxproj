@@ -142,6 +142,7 @@
     <ClCompile Include="ConsoleApplication2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Delete.txt" />
     <Text Include="Master.txt" />
     <Text Include="Slave.txt" />
   </ItemGroup>

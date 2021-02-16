@@ -26,5 +26,8 @@
     <Text Include="Slave.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="Delete.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>

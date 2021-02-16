@@ -79,13 +79,18 @@ public:
             it++;
         }
     }
-    Slave add_row(string PIB, string rank, string gender, int age) 
+    Slave add_row(string PIB, string rank, string gender, int age)
     {
         auto it = table_.end();
+        int id = 0;
+        if (it != table_.begin()) {
+        
         it--;
         Slave Y = *it;
+        id = Y.id_;
+        }
         int* p = new int[0];
-        Slave X = Slave(Y.id_ + 1, age, PIB, rank, gender);
+        Slave X = Slave(id + 1, age, PIB, rank, gender);
         table_.push_back(X);
         return X;
     }
@@ -265,6 +270,8 @@ public:
             }
             it++;
         }
+        int* p=0;
+        return Master(0, "", "", "", 0, p);
     }
     void print_all()
     {
@@ -278,11 +285,15 @@ public:
     }
     void add_Master(string name, string district, string region)
     {
+        int id = 0;
         auto it = table_.end();
-        it--;
-        Master Y = *it;
+        if (it != table_.begin()) {
+            it--; Master Y = *it;
+             id = Y.id_;
+        }
+        
         int* p = new int[0];
-        table_.push_back(Master(Y.id_ + 1, name, district,region, 0, p));
+        table_.push_back(Master(id + 1, name, district,region, 0, p));
     }
     void add_slave(int id_m,int id_s)
     {
@@ -365,6 +376,10 @@ int main()
             }
             catch (string) {}
             Master X = tbl_m.get_master_by_id(a);
+            if (X.id_ == 0)
+            {
+                continue;
+            }
             cout << X;
             tbl_m.print_rel_slaves(X, tbl_s);
             continue;
@@ -378,6 +393,9 @@ int main()
             }
             catch (string) {}
             Slave temp = tbl_s.get_row_by_id(a);
+            if (temp.id_ == 0) {
+                continue;
+            }
             cout << temp;
             continue;
         }
@@ -492,18 +510,29 @@ int main()
                 cin >> gender;
             }
             catch (char) {}
-            Slave S = tbl_s.add_row(PIB, rank, gender, age);
+            
             cout << "available masters: " << '\n';
             tbl_m.print_all();
-            tbl_s.save_slaves();
+            
             cout << "enter id of master: ";
-            int b = 1;
+            int b = 0;
             try {
                 cin >> b;
             }
             catch(char){}
+            if (b == 0) {
+                tbl_m.save_masters();
+                continue;
+            }
+            Master Check = tbl_m.get_master_by_id(b);
+            if (Check.id_ == 0) {                
+                continue;
+            }
+            Slave S = tbl_s.add_row(PIB, rank, gender, age);
+            
             tbl_m.add_slave(b, S.id_);
             tbl_m.save_masters();
+            tbl_s.save_slaves();
             continue;
         }
         if (inpt == "calc-m")
